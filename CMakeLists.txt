@@ -1,0 +1,38 @@
+#
+# Test UART driver server
+#
+# Copyright (C) 2019-2023, HENSOLDT Cyber GmbH
+#
+
+cmake_minimum_required(VERSION 3.7.2)
+
+#-------------------------------------------------------------------------------
+# use the SDK
+find_package("os-sdk" REQUIRED)
+os_sdk_set_defaults()
+os_sdk_setup(CONFIG_FILE "system_config.h" CONFIG_PROJECT "system_config")
+CAmkESAddCPPInclude("plat/${PLATFORM}")
+
+#-------------------------------------------------------------------------------
+project(tests_uart C)
+
+DeclareCAmkESComponent(
+    UART_tester
+    SOURCES
+        uart_tester.c
+    C_FLAGS
+        -Wall
+        -Werror
+    LIBS
+        system_config
+        os_core_api
+        lib_debug
+        lib_io
+)
+
+
+DeclareCAmkESComponents_for_UARTs()
+
+
+#ROOT SERVER
+os_sdk_create_CAmkES_system("main.camkes")

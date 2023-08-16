@@ -1,0 +1,36 @@
+/*
+ *  UART Test System
+ *
+ *  Copyright (C) 2020, HENSOLDT Cyber GmbH
+ */
+
+import <std_connector.camkes>;
+
+#include "system_config.h"
+#include "plat_system_config.h"
+
+#include "UART/Uart.camkes"
+#include "uart_tester.camkes";
+
+assembly {
+    composition {
+
+        // UART_IO is a define set in plat_system_config.h to choose the
+        // platform UART thatis used.
+        component UART_IO uartDrv;
+
+        component  UART_tester uart_tester;
+
+        UART_INSTANCE_CONNECT_CLIENT(
+            uartDrv,
+            uart_tester.uart_rpc,
+            uart_tester.uart_input_port,
+            uart_tester.uart_output_port,
+            uart_tester.uart_event)
+
+    }
+    configuration {
+       uartDrv.priority     = 100;
+       uart_tester.priority = 101; // Must be lower than uartDrv.
+    }
+}
