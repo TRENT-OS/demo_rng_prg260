@@ -14,12 +14,12 @@ os_sdk_setup(CONFIG_FILE "system_config.h" CONFIG_PROJECT "system_config")
 CAmkESAddCPPInclude("plat/${PLATFORM}")
 
 #-------------------------------------------------------------------------------
-project(tests_uart C)
+project(tests_rng_prg260 C)
 
 DeclareCAmkESComponent(
-    UART_tester
+    Rng_Prg_tester
     SOURCES
-        uart_tester.c
+        rng_prg_tester.c
     C_FLAGS
         -Wall
         -Werror
@@ -33,6 +33,10 @@ DeclareCAmkESComponent(
 
 DeclareCAmkESComponents_for_UARTs()
 
+# Use the existing entropy source, which at this point is just some dummy
+Rng_Prg260_DeclareCAmkESComponent(
+    Rng_Prg260
+)
 
 #ROOT SERVER
 os_sdk_create_CAmkES_system("main.camkes")

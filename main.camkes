@@ -1,7 +1,7 @@
 /*
- *  UART Test System
+ *  Rng PRG260 Demo Application
  *
- *  Copyright (C) 2020, HENSOLDT Cyber GmbH
+ *  Copyright (C) 2023, HENSOLDT Cyber GmbH
  */
 
 import <std_connector.camkes>;
@@ -10,27 +10,32 @@ import <std_connector.camkes>;
 #include "plat_system_config.h"
 
 #include "UART/Uart.camkes"
-#include "uart_tester.camkes";
+#include "Rng_Prg260/Rng_Prg260.camkes"
+
+#include "rng_prg_tester.camkes";
+
+
+import <if_OS_Entropy.camkes>;
+
+Rng_Prg260_COMPONENT_DEFINE(Rng_Prg260)
 
 assembly {
     composition {
 
         // UART_IO is a define set in plat_system_config.h to choose the
-        // platform UART thatis used.
+        // platform UART that is used.
         component UART_IO uartDrv;
 
-        component  UART_tester uart_tester;
+        component Rng_Prg260 rng_Prg260;
 
-        UART_INSTANCE_CONNECT_CLIENT(
-            uartDrv,
-            uart_tester.uart_rpc,
-            uart_tester.uart_input_port,
-            uart_tester.uart_output_port,
-            uart_tester.uart_event)
+        component  Rng_Prg_tester rng_prg_tester;
 
-    }
-    configuration {
-       uartDrv.priority     = 100;
-       uart_tester.priority = 101; // Must be lower than uartDrv.
+        Rng_Prg260_INSTANCE_CONNECT_UART(rng_Prg260, uartDrv)
+
+        Rng_Prg260_INSTANCE_CONNECT_CLIENT(
+            rng_Prg260,
+            rng_prg_tester.entropy_rpc,
+            rng_prg_tester.entropy_port)
+
     }
 }

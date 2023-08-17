@@ -1,0 +1,16 @@
+/*
+ *  Rng Prg tester
+ *
+ *  Copyright (C) 2020-2023, HENSOLDT Cyber GmbH
+ *
+ */
+
+import <if_OS_Entropy.camkes>;
+
+
+component Rng_Prg_tester {
+    control;
+
+    uses        if_OS_Entropy   entropy_rpc;
+    dataport    Buf             entropy_port;
+}

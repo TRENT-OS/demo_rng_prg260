@@ -22,6 +22,14 @@ After this reboot or apply udev rule with:
 ```sh
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
+### Adjustment of the TTY Path
+
+The correct tty path of the connected uart device must be specified in `seos_tests/src/ta/tests/test_rng_prg260.py` line 17.
+
+```python
+TTYUSB_DEVICE = "/dev/ttyUSB1" # Change this line according to your setup
+```
+
 
 ## Launching of the test
 Docker requires some extra parameters in order to get the test working correctly.
