@@ -6,11 +6,12 @@
  */
 
 import <if_OS_Entropy.camkes>;
-
+import <Rng_Prg260/interface/if_OS_PRG260_Keystore.camkes>;
 
 component Rng_Prg_tester {
     control;
 
-    uses        if_OS_Entropy   entropy_rpc;
-    dataport    Buf             entropy_port;
+    uses        if_OS_Entropy           entropy_rpc;
+    uses        if_OS_PRG260_Keystore   prg260_keystore_rpc;
+    dataport    Buf                     entropy_port;
 }

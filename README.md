@@ -1,8 +1,15 @@
-# Test RNG PRG260
+# Demo RNG PRG260
 This is a test for the PRG260 Random Number Generator Driver component in TRENTOS.
 
+A companion demonstrator is provided with `demo_rng_prg260` which is to be consulted on how to use the 
+driver and the corresponding interfaces. It further showcases how the provided function work.
 
-## Test Setup
+## Hardware setup
+TODO
+
+
+
+## Qemu Test Setup (Requires Pytest Test Framework)
 In order to allow the setup to work the host system must be prepared.
 
 1. PRG260 RNG must be connected to the host system via UART (USB).
@@ -41,4 +48,10 @@ src/build.sh build-and-test test_rng_prg260 -d '-v /dev:/dev --privileged'
 ```
 
 ## Sources
+
+Pytest file with SerialProxy: 
+```python
+src/ta/tests/test_demo_rng_prg260.py
+```
+
 How to use uart devices in docker: [Losant Serial Devices Docker](https://www.losant.com/blog/how-to-access-serial-devices-in-docker)

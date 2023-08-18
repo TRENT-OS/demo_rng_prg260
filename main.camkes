@@ -16,6 +16,7 @@ import <std_connector.camkes>;
 
 
 import <if_OS_Entropy.camkes>;
+import <Rng_Prg260/interface/if_OS_PRG260_Keystore.camkes>;
 
 Rng_Prg260_COMPONENT_DEFINE(Rng_Prg260)
 
@@ -32,10 +33,15 @@ assembly {
 
         Rng_Prg260_INSTANCE_CONNECT_UART(rng_Prg260, uartDrv)
 
-        Rng_Prg260_INSTANCE_CONNECT_CLIENT(
+        Rng_Prg260_INSTANCE_CONNECT_ENTROPY(
             rng_Prg260,
             rng_prg_tester.entropy_rpc,
             rng_prg_tester.entropy_port)
+
+        Rng_Prg260_INSTANCE_CONNECT_KEYSTORE(
+            rng_Prg260,
+            rng_prg_tester.prg260_keystore_rpc
+        )
 
     }
 }

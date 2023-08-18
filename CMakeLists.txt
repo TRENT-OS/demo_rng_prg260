@@ -1,5 +1,5 @@
 #
-# Test UART driver server
+# Rng PRG260 Demo Application
 #
 # Copyright (C) 2019-2023, HENSOLDT Cyber GmbH
 #
