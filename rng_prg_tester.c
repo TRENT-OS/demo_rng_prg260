@@ -64,8 +64,10 @@ OS_Error_t test_keystore(void) {
 
     k_ctx.master_pin = 5555;
     k_ctx.user_pin = 1111;
+    Debug_LOG_DEBUG("Starting Keystore Test");
 
     if (rnd_key(&k_ctx.key1) || rnd_key(&k_ctx.key2) ) {
+        Debug_LOG_ERROR("Failure to generate keys");
         return OS_ERROR_GENERIC;
     }
 
@@ -136,7 +138,7 @@ int run(void) {
 // UART dataport size for the Platform in question in `components/UART/plat/`
 // This is tested and works but due to compatibility reasons with all platforms
 // not set as default.
-    fail =  test_read_bytes(16)   || 
+    fail =  test_read_bytes(16)   ||
             test_read_bytes(32)   ||
             test_read_bytes(2048) || 
             test_read_bytes(31)   ||

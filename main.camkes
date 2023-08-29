@@ -44,4 +44,9 @@ assembly {
         )
 
     }
+    configuration {
+        uartDrv.priority        = 102;
+        rng_Prg260.priority     = 101; //Hier läuft loop geht nicht mehr weiter
+        rng_prg_tester.priority = 100; // Must be lower than uartDrv.
+    }
 }
